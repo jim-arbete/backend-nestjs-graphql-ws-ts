@@ -1,4 +1,8 @@
-import { GraphQLServer } from 'graphql-yoga'
+const { GraphQLServer } = require('graphql-yoga')
+
+if (process.env.NODE_ENV === 'development') {
+	console.log('>> process.env.NODE_ENV: ', process.env.NODE_ENV)
+}
 
 const typeDefs = `
   type Query {
