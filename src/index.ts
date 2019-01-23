@@ -58,7 +58,7 @@ randomiseLastDigitHumidityAndParseToFloat = orgValue => {
 }
 
 // Mock Actions to test dynamic data with websockets
-let intervalSeconds = 4 * 300 // change every 4 seconds
+let intervalSeconds = 4 * 1000 // change every 4 seconds
 setInterval(() => {
   homesMockDB.map(house => {
     house.rooms.map(room => {
@@ -66,17 +66,13 @@ setInterval(() => {
       room.humidity = randomiseLastDigitHumidityAndParseToFloat(room.humidity)
     })
   })
-  pubsub.publish('housesChanged', { housesChanged: homesMockDB}) // Trigger subscription event..
+  pubsub.publish('housesChanged', { housesChanged: homesMockDB}) // Trigger "housesChanged" subscription event..
 }, intervalSeconds)
 
 
 // GraphQL schema
 const typeDefs = `
   type Query {
-    hello(name: String): String!
-    counter: String
-
-
     house(id: ID!): House
     houses: [House]
   }
@@ -93,47 +89,19 @@ const typeDefs = `
     humidity: Float
   }
 
-
-
-  type Counter {
-    count: Int!
-    countStreamStr: String
-  }
-
   type Subscription {
-    counter: Counter!
     housesChanged: [House]
   }
 `
 
-const pubsub = new PubSub() // Graphql subscription (websocket)
-
 const resolvers = {
   Query: {
-    hello: (_, { name }) => `Hello ${name || 'World'}`,
-    counter: () => `Current count: ${randomValue}`,
-
     house: (_, { id }) => homesMockDB.find(home => home.id === id),
     houses: () => homesMockDB
   },
-
-  Counter: {
-    countStreamStr: counter => `Current count: ${counter.count}`
-  },
   Subscription: {
-    housesChanged: {
-      subscribe: () => pubsub.asyncIterator('housesChanged')
-      // Emit the dynamic data to the client with AsyncIterator 
-    },
-
-
-    counter: {
-      subscribe: (parent, args, { pubsub }) => {
-        const channel = Math.random().toString(36).substring(2, 15) // random channel name
-        let count = 0
-        setInterval(() => pubsub.publish(channel, { counter: { count: count++ } }), 2000)
-        return pubsub.asyncIterator(channel)
-      },
+    housesChanged: {      
+      subscribe: () => pubsub.asyncIterator('housesChanged') // listener for event => if triggered => send our dynamic data to the client with AsyncIterator 
     }
   }
 }
@@ -145,7 +113,7 @@ const options = {
   playground: '/playground',
 }
 
-
+const pubsub = new PubSub() // Graphql subscription (websocket)
 const websocketServer = new GraphQLServer({ typeDefs, resolvers, context: { pubsub } })
 websocketServer.use(morgan('combined')) // log network requests in console
 websocketServer.start(options, ({ port }) => console.log(`Websocket Server is running on http://localhost:${port}`))
@@ -163,6 +131,19 @@ websocketServer.start(options, ({ port }) => console.log(`Websocket Server is ru
 //     }
 //   }
 //   houses {
+//     id
+//     name
+//     rooms {
+//       name
+//       temperature
+//       humidity
+//     }
+//   }
+// }
+
+
+// subscription {
+//   housesChanged {
 //     id
 //     name
 //     rooms {
