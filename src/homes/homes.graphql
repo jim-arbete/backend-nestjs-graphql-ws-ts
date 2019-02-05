@@ -1,0 +1,20 @@
+type Home {
+  id: Int!
+  name: String
+  rooms: [Room]!
+}
+
+type Room {
+  name: String!
+  temperature: Float
+  humidity: Float
+}
+
+type Query {
+  Home(id: Int!): Home
+  Homes: [Home]
+}
+
+type Subscription {
+  HomesChanged: [Home]
+}

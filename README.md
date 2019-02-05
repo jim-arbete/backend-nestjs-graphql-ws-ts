@@ -73,3 +73,48 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
   Nest is [MIT licensed](LICENSE).
+
+
+  ## GraphQL Query - Examples
+
+```bash
+# Get 1 home from ID
+query {
+  Home(id:1) {
+    id
+    name
+    rooms {
+      name
+      temperature
+      humidity
+    }
+  }
+}
+
+# Get ALL Homes
+query {
+  Home(id:2) {
+    id
+    name
+    rooms {
+      name
+      temperature
+      humidity
+    }
+  }
+}
+
+# Subscribe to Homes (over websocket)
+subscription {
+  HomesChanged {
+    id
+    name
+    rooms {
+      name
+      temperature
+      humidity
+    }
+  }
+}
+```
+
