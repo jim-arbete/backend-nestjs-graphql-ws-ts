@@ -4,6 +4,11 @@
 //     base64UrlEncode(payload),
 //     123456789Z
 // )
+// PAYLOAD:DATA
+// {
+//     "sub": "1",
+//     "name": "admin"
+// }
 export const UsersMock: any[] = [
     {
     id: 1,

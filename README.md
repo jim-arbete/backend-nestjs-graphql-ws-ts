@@ -75,11 +75,13 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
   Nest is [MIT licensed](LICENSE).
 
 
-  ## GraphQL Query - Examples
-
+  ## GraphQL Playground - Examples
+Playground HTTP HEADERS:
+```bash
 {
-  "Authorization": "Bearer 132132131"
+  "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwibmFtZSI6InRlc3QifQ.NXG53aMWWSHnzybh1Wk-0rDRi-yF-tBl9TDhmfAaqT0"
 }
+```
 
 ```bash
 # Get 1 home from ID
@@ -97,13 +99,12 @@ query {
 
 # Get ALL Homes
 query {
-  Home(id:2) {
+  Homes {
     id
     name
     rooms {
       name
       temperature
-      humidity
     }
   }
 }

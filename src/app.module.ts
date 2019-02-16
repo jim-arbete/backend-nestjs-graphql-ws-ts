@@ -6,6 +6,7 @@ import { HomesController } from './homes/homes.controller';
 import { HomesService } from './homes/homes.service';
 import { HomesResolver } from './homes/homes.resolver';
 import { UsersService } from './users/users.service';
+import { AuthenticationError } from 'apollo-server-core';
 
 @Module({
   imports: [
@@ -19,6 +20,17 @@ import { UsersService } from './users/users.service';
         // skapa graphql.schema autmatiskt av *.graphql filer.
         path: join(process.cwd(), 'src/graphql.schema.ts'),
         outputAs: 'class',
+      },
+      subscriptions: {
+        onConnect: (connectionParams: any) => {
+          const usersService = new UsersService();
+          // get `authroization` header
+          const token = connectionParams.authorization;
+          if (token) {
+            return usersService.getOneByToken(token.split(' ')[1]);
+          }
+          throw new AuthenticationError('authorization token must be provided');
+        },
       },
     }),
     AuthModule,
