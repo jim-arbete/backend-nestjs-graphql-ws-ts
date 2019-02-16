@@ -1,7 +1,9 @@
+import { UseGuards } from '@nestjs/common';
 import { Resolver, Query, Args, Subscription } from '@nestjs/graphql';
 import { PubSub } from 'graphql-subscriptions';
 import { HomesService } from './homes.service';
 import { Home } from '../graphql.schema';
+import { GqlAuthGuard } from '../auth/auth.guard';
 
 const pubSub = new PubSub();
 
@@ -19,6 +21,7 @@ const randomiseLastDigitHumidityAndParseToFloat = (orgValue: any): any => {
 };
 
 @Resolver('Home')
+@UseGuards(GqlAuthGuard)
 export class HomesResolver {
   constructor(private homesService: HomesService) {
 
@@ -39,12 +42,13 @@ export class HomesResolver {
   }
 
   @Query()
-  async Home(@Args('id') id: number): Promise<Home> {
+    async Home(@Args('id') id: number) {
     return await this.homesService.getOneById(id);
   }
 
+  // @UseGuards(AuthGuard())
   @Query()
-  async Homes(): Promise<Home[]> {
+    async Homes(): Promise<Home[]> {
     return await this.homesService.getAll();
   }
 

@@ -77,6 +77,10 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 
   ## GraphQL Query - Examples
 
+{
+  "Authorization": "Bearer 132132131"
+}
+
 ```bash
 # Get 1 home from ID
 query {
