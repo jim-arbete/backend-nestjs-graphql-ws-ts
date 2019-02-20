@@ -24,13 +24,22 @@
   <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
   [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
 
+
 ## Description
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
+- API Endpooint `http://localhost:4000/homes` to use the Playground.
+- Graphql and Websocket Endpoint `http://localhost:4000/graphql` `ws://localhost:4000/graphql`
+
+## Installation Prerequisites
+1. Install Node.js version 11 or later `https://nodejs.org/en/download/`. 
+
 ## Installation
 
 ```bash
+$ git clone https://github.com/jim-arbete/backend-ws.git backend-ws
+$ cd backend-ws
 $ npm install
 ```
 
@@ -55,6 +64,12 @@ $ npm run test
 
 # e2e tests
 $ npm run test:e2e
+```
+
+## Use/Test API Endpoint in Postman/Insomnia
+- You need to use a valid token: 
+```bash
+$ curl localhost:4000/homes -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIyIiwibmFtZSI6InRlc3QifQ.NXG53aMWWSHnzybh1Wk-0rDRi-yF-tBl9TDhmfAaqT0"
 ```
 
 ## GraphQL Playground - Examples

@@ -5,6 +5,7 @@
     "removeComments": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
+    "esModuleInterop": true, // fixes "npm run start:prod" when building project
     "target": "ESNEXT",
     "sourceMap": true,
     "outDir": "./dist",
