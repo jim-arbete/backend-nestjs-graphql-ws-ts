@@ -10,8 +10,8 @@ export class HomesController {
 
     // => GET /homes/
     @Get()
-    getAll(): Home[] {
-        return this.homesService.getAll();
+    async getAll() {
+        return await this.homesService.getAll();
     }
 
     // => GET /homes/id/{id}

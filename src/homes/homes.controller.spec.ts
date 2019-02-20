@@ -1,4 +1,4 @@
-import { Test } from '@nestjs/testing';
+import { Test, TestingModule } from '@nestjs/testing';
 import { HomesController } from './homes.controller';
 import { HomesService } from './homes.service';
 
@@ -7,7 +7,7 @@ describe('Homes Controller', () => {
   let homesService: HomesService;
 
   beforeEach(async () => {
-    const module = await Test.createTestingModule({
+    const module: TestingModule = await Test.createTestingModule({
       controllers: [HomesController],
       providers: [HomesService],
     }).compile();
@@ -17,12 +17,6 @@ describe('Homes Controller', () => {
   });
 
   describe('getAll', () => {
-
-    // describe('root', () => {
-    //   it('should return "Hello World!"', () => {
-    //     expect(homesController.getHello()).toBe('Hello World!');
-    //   });
-    // });
 
     it('should return an array of homes', async () => {
       const result = ['test'];

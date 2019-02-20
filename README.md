@@ -29,7 +29,7 @@
 
 [Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-- API Endpooint `http://localhost:4000/homes` to use the Playground.
+- API Endpooint `http://localhost:4000/homes`
 - Graphql and Websocket Endpoint `http://localhost:4000/graphql` `ws://localhost:4000/graphql`
 
 ## Installation Prerequisites
@@ -57,12 +57,12 @@ $ npm run start:prod
 ```
 
 ## Test
-
 ```bash
 # unit tests
 $ npm run test
 
 # e2e tests
+# Tests the API Endpoint and with and without the authorization token.
 $ npm run test:e2e
 ```
 
